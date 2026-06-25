@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: `dark:` utilities apply whenever an ancestor
+   (in practice, <html>) carries the "dark" class, set by ThemeToggle
+   rather than only following prefers-color-scheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  color-scheme: light dark;
+  /* Nav's Top/Rates/Calculator links are plain #id anchors — this is what
+     makes jumping to one glide instead of snapping. */
+  scroll-behavior: smooth;
+}
+
+/* Hero's full-bleed `w-screen` trick is wider than the visible viewport
+   whenever a vertical scrollbar is present (100vw includes the
+   scrollbar's own width), which otherwise creates a horizontal scrollbar
+   for the few pixels of overhang. Nothing on the site relies on
+   horizontal scroll, so clipping it at the root is safe everywhere. */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Recharts takes stroke colors as plain SVG attributes, not classNames,
+   so RateHistoryChart reads these instead of a `dark:` utility. */
+:root {
+  --chart-grid: #e5e7eb;
+  --chart-line: #16a34a;
+  --chart-text: #6b7280;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: #e5e7eb;
+}
+
+.dark {
+  --chart-grid: #262626;
+  --chart-line: #4ade80;
+  --chart-text: #a3a3a3;
+  --chart-tooltip-bg: #171717;
+  --chart-tooltip-border: #404040;
+}
+
+/*
+ * A plain box-shadow is black-on-black and invisible against a true-black
+ * page, so "elevated card" in dark mode reads instead as a faint light
+ * edge plus a soft halo — the same idea a regular drop shadow gives in
+ * light mode, just inverted. Applied alongside (not instead of) each
+ * surface's existing border/shadow utilities; has no effect outside
+ * .dark, so light mode is untouched.
+ */
+.dark .surface-glow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.dark .surface-glow:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* Staggered entrance for the "Today's Best Rates" cards (each given an
+   increasing animation-delay) — a small bit of motion so the headline
+   cards feel like they arrived, not like static markup. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise-in {
+  animation: rise-in 0.4s ease-out both;
+}
+
+/* The three drifting glow blobs in AuroraBackground — each on its own
+   timing/distance so they don't all move in lockstep. */
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(60px, 50px) scale(1.1); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-50px, 40px) scale(1.05); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(40px, -60px) scale(1.08); }
+}
+.animate-float-a { animation: float-a 20s ease-in-out infinite; }
+.animate-float-b { animation: float-b 24s ease-in-out infinite; }
+.animate-float-c { animation: float-c 28s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-a, .animate-float-b, .animate-float-c {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Cursor-tracking border-glow + light spill for every card in TopRatesToday
+   (HoverGlowCard, tracked grid-wide by CardGlowGrid so nearby cards light
+   up too, not just the one directly under the pointer). Each card sets
+   its own --glow-color (an "r, g, b" triplet, not a full color —
+   rgba(var(--glow-color), a) needs the bare channels) so the glow matches
+   that card's own accent instead of one fixed brand color.
+   --glow-x/--glow-y/--glow-intensity are pushed from CardGlowGrid's
+   mousemove handler.
+
+   Desktop only (min-width: 768px, matching Tailwind's `md:`): there is no
+   cursor to track on a touchscreen, so below that width the cards fall
+   back to a plain solid black background instead — cheaper to paint than
+   the translucent/backdrop-blur tints each card's own className applies,
+   which matters more on mobile hardware. */
+@media (min-width: 768px) {
+  .glow-card {
+    --glow-x: 50%;
+    --glow-y: 50%;
+    --glow-intensity: 0;
+  }
+  /* ::before is a soft fill behind the card's content (negative z-index,
+     so it never washes out the text) that brightens the area near the
+     cursor; ::after is the thin border ring on top. */
+  .glow-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      220px circle at var(--glow-x) var(--glow-y),
+      rgba(var(--glow-color), calc(var(--glow-intensity) * 0.22)) 0%,
+      rgba(var(--glow-color), calc(var(--glow-intensity) * 0.08)) 45%,
+      transparent 75%
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+  .glow-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: radial-gradient(
+      260px circle at var(--glow-x) var(--glow-y),
+      rgba(var(--glow-color), calc(var(--glow-intensity) * 0.95)) 0%,
+      rgba(var(--glow-color), calc(var(--glow-intensity) * 0.4)) 45%,
+      transparent 70%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .glow-card {
+    background-color: black !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
