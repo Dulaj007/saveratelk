@@ -10,7 +10,7 @@ Note: NDB previously published rates as a downloadable PDF (the reason this
 module's bank registry entry says "pdf"), but its current site renders the
 same data as plain HTML tables. The live page was inspected before writing
 any selectors, per project policy, and confirmed there is no PDF involved
-any more — only the HTML path is implemented here.
+any more. Only the HTML path is implemented here.
 
 NDB's tables use HTML rowspan to avoid repeating a tenure (or account name)
 label across multiple rows that share it: a row introducing a new tenure has
@@ -27,7 +27,7 @@ products rather than the standard FD ladder.
 NDB also publishes a companion page, interest-rates-on-advances, with a
 single "Description" table covering several lending products. Unlike the
 deposits tables above, every row here repeats its own label cell (no
-rowspan) — each row is always exactly 5 cells: label, description, Min.
+rowspan). Each row is always exactly 5 cells: label, description, Min.
 rate, Max. rate, and an "Others" cell that is always 0.00% in practice and
 is ignored. Rows that bundle several sub-variants (e.g. Personal Loans'
 "General personal loan / Special rate for doctors / Solar Vantage") put
@@ -178,8 +178,8 @@ def _parse_savings_table(table) -> list[RateRecord]:
 def _parse_advances_table(table) -> list[RateRecord]:
     """
     Parse the lending "Description" table (interest-rates-on-advances) into
-    RateRecord objects. Every data row is exactly 5 cells — label,
-    description, Min. rate, Max. rate, Others (ignored) — with no rowspan,
+    RateRecord objects. Every data row is exactly 5 cells: label,
+    description, Min. rate, Max. rate, Others (ignored), with no rowspan,
     unlike the deposits tables above. Only rows whose label maps to one of
     the project's 7 new lending categories (via _ADVANCES_LABEL_MAP or
     _OVERDRAFT_LABEL_SUBSTRINGS) are kept; everything else (business/SME/

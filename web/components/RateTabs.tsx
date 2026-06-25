@@ -5,7 +5,7 @@
  * (Fixed Deposits, Savings Accounts, Loans & Cards) and, nested one level
  * deeper inside Fixed Deposits/Savings Accounts, the per-tenure/per-
  * category sub-tabs (e.g. "1 Month FD", "Senior Citizens' Savings"). A
- * Client Component only for the tab-switching state — each tab's content
+ * Client Component only for the tab-switching state. Each tab's content
  * is still rendered server-side by the page, so switching tabs is just a
  * visibility toggle, not a fresh data fetch.
  *

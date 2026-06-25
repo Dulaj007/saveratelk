@@ -3,14 +3,14 @@
  *
  * Drives the `.glow-card` cursor-light effect (globals.css) for every
  * HoverGlowCard nested anywhere inside it. Tracks the pointer across this
- * whole wrapped area — which may contain several separately-laid-out card
+ * whole wrapped area, which may contain several separately-laid-out card
  * grids (e.g. TopRatesToday's headline pair plus its two rows of small
- * cards below) — rather than each card's own mouseenter/leave, so a card
+ * cards below), rather than each card's own mouseenter/leave, so a card
  * the cursor is merely near, even in an adjacent row, still lights up,
  * fading out with distance. That's what makes several adjacent cards glow
  * at once instead of only the one directly under the pointer.
  *
- * Pure CSS-variable pushing — no animation library — so this stays a
+ * Pure CSS-variable pushing, no animation library, so this stays a
  * small Client Component while the cards it wraps (passed as children)
  * stay server-rendered.
  */

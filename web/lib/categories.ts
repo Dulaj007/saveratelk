@@ -2,7 +2,7 @@
  * lib/categories.ts
  *
  * The four top-level rate categories shown on the homepage hero pills and
- * used to pick which flat table CategoryFlatTable renders — split out from
+ * used to pick which flat table CategoryFlatTable renders. Split out from
  * lib/productTypes.ts's seven lending types because the homepage groups
  * "Loans" (housing/personal/leasing/education/pawning/overdraft) together
  * and gives credit cards their own pill, matching how a saver actually

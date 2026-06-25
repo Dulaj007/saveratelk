@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS scrape_runs (
 -- the main scheduled run, a row is inserted here with retry_at set a fixed
 -- delay into the future. A separate, lightweight cron job polls this table
 -- frequently and re-attempts exactly that one bank when its retry_at
--- arrives, deleting the row whether the retry succeeds or fails — there is
+-- arrives, deleting the row whether the retry succeeds or fails. There is
 -- no second retry; a repeat failure just waits for the next main run.
 -- =============================================================================
 CREATE TABLE IF NOT EXISTS pending_retries (

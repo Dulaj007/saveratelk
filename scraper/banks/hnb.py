@@ -8,7 +8,7 @@ Method: static HTML page is a JavaScript-rendered single-page app (React),
 but the rate tables are sourced from a public JSON API the page itself
 calls client-side: https://venus.hnb.lk/api/get_interest_rates_contents.
 Calling that API directly with plain HTTP avoids the cost and fragility of
-browser automation entirely — confirmed by inspecting the page's network
+browser automation entirely. Confirmed by inspecting the page's network
 requests rather than assuming the rendered DOM had to be scraped.
 
 The API returns a tree of category -> sub_category -> named rate blocks,
@@ -22,7 +22,7 @@ The "Loans" category's "HNB Home Loans" and "Personal Loan" blocks share
 that same wide format (Type | Tenure | rate-column, rate-column...), one
 row per tenure with several customer-segment rate columns. Some rows are
 "Floating" type and quote a margin like "AWPLR + 2.50%" with no flat
-number — only "Fixed" rows are scraped, via the same type_filter approach.
+number. Only "Fixed" rows are scraped, via the same type_filter approach.
 "Education Loans" is a flatter Period(years) | Rate-with-grace |
 Rate-without-grace table; "Pawning" (its own top-level category, not under
 "Loans") is a plain Facility Amount | Interest Rate table. HNB's "Leasing"
@@ -171,7 +171,7 @@ def _parse_dual_rate_loan_table(
     Parse a Type | Tenure | rate-column... loan table (HNB Home Loans,
     Personal Loan) into RateRecord objects, one per (row, rate column).
     If type_filter is given, only rows whose Type cell matches it
-    (case-insensitive) are kept — used to skip "Floating" rows, which
+    (case-insensitive) are kept, used to skip "Floating" rows, which
     quote a margin like "AWPLR + 2.50%" with no flat number to scrape.
     """
     records = []
@@ -210,7 +210,7 @@ def _parse_education_loan_table(table: dict) -> list[RateRecord]:
     """
     Parse the Education Loans table (Period (years) | Rate During Grace
     Period | Rate Without Grace Period) into RateRecord objects, one per
-    (row, rate column) — both the grace and non-grace rate are genuine
+    (row, rate column). Both the grace and non-grace rate are genuine
     published numbers, kept as separate records distinguished by notes.
     Cells reading "-" (not offered at that period) are skipped.
     """

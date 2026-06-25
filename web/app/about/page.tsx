@@ -1,13 +1,13 @@
 /**
  * app/about/page.tsx
  *
- * About page — what this site is, why it exists, and which banks it
- * covers (with a short blurb and a link to each, as a small bit of
- * promotion for them), ending with the disclaimer.
+ * About page. Explains what this site is, why it exists, and which banks
+ * it covers (with a short blurb and a link to each), ending with the
+ * disclaimer.
  *
  * Reuses Hero exactly as the homepage does (same background photo, same
  * headline/subtitle) so the page reads as a continuation of the same
- * site rather than a different template — only what comes after the
+ * site rather than a different template. Only what comes after the
  * subtitle changes: instead of the "Top rates today" cards, this page's
  * own content fades in (.animate-rise-in) in that spot.
  *

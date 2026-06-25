@@ -14,7 +14,7 @@ After all banks are processed, runs the CBSL benchmark collector.
 
 Scheduling model: this script is meant to run once every
 config.SCRAPE_INTERVAL_HOURS (24 hours by default), not continuously and
-not on every page view — the web app only ever reads whatever the last
+not on every page view. The web app only ever reads whatever the last
 successful run stored, and displays that row's timestamp as "last
 updated"; pages are also ISR-cached for that same window, so most
 requests never even reach the database. Run it once manually right after
@@ -22,8 +22,8 @@ first setting up the database (so it isn't empty before the first
 scheduled workflow run), then let the workflow take over.
 
 Failure handling: a bank that fails during this run is NOT retried inline.
-The run continues immediately to the next bank — old data for the failed
-bank just keeps showing in the UI — and exactly one follow-up attempt is
+The run continues immediately to the next bank. Old data for the failed
+bank just keeps showing in the UI, and exactly one follow-up attempt is
 queued config.RETRY_DELAY_MINUTES later via the pending_retries table,
 picked up by the workflow's second scheduled trigger, which runs
 retry_failed.py instead of this script (see that script for why the retry
@@ -97,7 +97,7 @@ def run_bank(code: str, scrape_fn, allow_retry_scheduling: bool = True) -> None:
     bank_id = get_bank_id(code)
 
     if bank_id is None:
-        logger.warning("Bank code %r not found in database or is inactive — skipping.", code)
+        logger.warning("Bank code %r not found in database or is inactive, skipping.", code)
         return
 
     logger.info("--- Starting scrape for %s ---", code.upper())

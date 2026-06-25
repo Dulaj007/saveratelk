@@ -1,8 +1,8 @@
 /**
  * components/MobileTabBar.tsx
  *
- * Mobile equivalent of Nav: a bottom-fixed tab bar — Top / Rates /
- * Calculator / About — instead of the floating top pill, the standard
+ * Mobile equivalent of Nav: a bottom-fixed tab bar (Top / Rates /
+ * Calculator / About) instead of the floating top pill, the standard
  * "app" pattern for small screens. Hidden at `md:` and up (Nav takes
  * over there).
  *
@@ -11,7 +11,7 @@
  * full screen: tapping one sets `?tab=` in the URL, and
  * HomeRatesSection's `tabClass()` shows only that section and hides the
  * rest below `md:`. So this is plain Link navigation, not a scroll
- * action — these hrefs deliberately carry no `#id` hash (unlike Nav's
+ * action. These hrefs deliberately carry no `#id` hash (unlike Nav's
  * and Footer's), since scrolling to the section's own anchor would land
  * past whatever sits above it inside that section (e.g. CategoryPills,
  * which comes before #rates-table) instead of at the section's actual

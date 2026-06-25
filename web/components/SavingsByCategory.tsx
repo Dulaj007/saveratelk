@@ -3,7 +3,7 @@
  *
  * Savings account comparison, one sub-tab per category (Normal, Minor/
  * Children's, Senior Citizens, Money Market, Special) instead of all
- * five stacked vertically — see lib/categorize.ts for how a row's free-
+ * five stacked vertically. See lib/categorize.ts for how a row's free-
  * text product name is classified into one of these; it's a keyword
  * heuristic, not an exact mapping, so an unusually-named product can
  * land in "Special" even when it might reasonably belong elsewhere. Each
@@ -11,7 +11,7 @@
  * other single-rate-column product types via RateTable) plus a multi-
  * bank history chart of that category's rate over time.
  *
- * Server Component — all grouping/pivoting happens once at render time.
+ * Server Component, since all grouping/pivoting happens once at render time.
  */
 
 import { RateRow, HistoryRow } from "@/lib/db";
@@ -45,7 +45,7 @@ export default function SavingsByCategory({ rows, history }: Props) {
       <div className="space-y-6">
         <RateTable rows={categoryRows} />
         <section className="surface-glow rounded-xl border border-gray-200 p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950">
-          <MultiBankHistoryChart data={data} series={series} title={`${SAVINGS_CATEGORY_LABELS[category]} — rate history`} />
+          <MultiBankHistoryChart data={data} series={series} title={`${SAVINGS_CATEGORY_LABELS[category]} rate history`} />
         </section>
       </div>
     );

@@ -28,7 +28,7 @@ way panasia.py locates its FD tables (nearest preceding heading text).
 
 The loan tables (housing/personal/vehicle/scholar) break each tenure row
 into several rate columns by employment/income category and credit-card
-status — there is no single published flat rate. Rather than invent one
+status. There is no single published flat rate. Rather than invent one
 "the" rate, the lowest rate in the lowest-tenure row is scraped as a
 representative "from X%" figure (the best case a qualifying customer could
 get), with a note that the true rate varies by category and tenure. The

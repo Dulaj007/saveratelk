@@ -5,7 +5,7 @@
  * entry per active bank's detail page. Next.js serves this at
  * /sitemap.xml automatically because of the file's special name and location.
  *
- * Cached for a day like the pages it lists — without a `revalidate`
+ * Cached for a day like the pages it lists. Without a `revalidate`
  * export this hits the database on every single crawl, which defeats
  * the point of moving to Neon + ISR to begin with.
  */

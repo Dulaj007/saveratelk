@@ -179,7 +179,7 @@ def get_bank_id(code: str) -> Optional[int]:
 
 def get_bank_code(bank_id: int) -> Optional[str]:
     """
-    Look up a bank's short code by its integer PK — the inverse of
+    Look up a bank's short code by its integer PK. The inverse of
     get_bank_id(), used by the retry queue to turn a stored bank_id back
     into something that can be looked up in the SCRAPERS registry.
 

@@ -25,13 +25,13 @@ located differently:
     (gold loan/pawning) instead have their only caption in a separate
     <h3> heading just before the table (found via
     _find_table_after_heading), with the table's own row 0 already being
-    its real column header — Personal Loans' table is unlike the others
+    its real column header. Personal Loans' table is unlike the others
     again: each scheme is one row whose second cell concatenates every
     repayment-tier rate as free text ("Upto 5 Years : 14.00% Above 5
     Years and Upto 7 Years : 14.50% ...") with no further per-tier table
     structure, so it's parsed with a regex instead of cell-by-cell.
   - The Credit Cards interest rate has no heading or caption of its own
-    at all — it's a small two-row table (header "... Interest Rate
+    at all. It's a small two-row table (header "... Interest Rate
     (p.a.)", one data row labelled "Credit Cards") found by that exact
     label rather than any caption, since it would otherwise be
     indistinguishable from the much larger fee tables nearby.
@@ -161,8 +161,8 @@ def _find_table_after_heading(soup: BeautifulSoup, heading_text: str):
     """
     Return the first table following the <h3> whose text matches
     heading_text exactly. Used for Personal Loans, Housing Loans, Leasing
-    and Ran Surekum Naya Seva (pawning), which — unlike Savings/
-    Educational Loans — have no single merged-cell caption row of their
+    and Ran Surekum Naya Seva (pawning), which, unlike Savings/
+    Educational Loans, have no single merged-cell caption row of their
     own inside the table; their only caption lives in a separate <h3>
     heading just before the table, whose own row 0 is already the real
     column header.
@@ -180,7 +180,7 @@ def _find_credit_card_rate(soup: BeautifulSoup) -> tuple[float, str] | None:
     Find BOC's published credit card interest rate: a small standalone
     table (header row "... Interest Rate (p.a.)", one data row whose
     English-tail label is "Credit Cards" and whose second cell is the flat
-    rate, e.g. "28.00%") — distinct from the much larger Joining Fees/
+    rate, e.g. "28.00%"). Distinct from the much larger Joining Fees/
     Annual Fees/Other Fees & Charges tariff tables elsewhere on the page,
     which list amounts in Rs., not a percentage rate. Returns
     (rate, label) or None.
@@ -268,9 +268,9 @@ def _parse_personal_loan_table(table) -> list[RateRecord]:
 
     Layout: one row per scheme (BOC Personal Loan Scheme / BOC Special
     Personal Loan Scheme), each a 2-cell row whose second cell concatenates
-    every repayment-period tier as free text — e.g. "Upto 5 Years : 14.00%
+    every repayment-period tier as free text, e.g. "Upto 5 Years : 14.00%
     Above 5 Years and Upto 7 Years : 14.50% Above 7 years to 10 years:
-    15.50%" — with no further table structure inside it, so each
+    15.50%", with no further table structure inside it, so each
     "<phrase> : <rate>%" tier is pulled out with a regex rather than
     walked cell by cell.
     """
@@ -341,7 +341,7 @@ def _parse_housing_loan_table(table) -> list[RateRecord]:
     ROI (p.a.) Fixed), then data rows of two shapes:
       - 1-cell rows are an informational tier separator (e.g. "If aggregate
         Housing Loan amount is up to Rs. 5.0 Mn") and carry no rate of
-        their own — skipped.
+        their own, so they're skipped.
       - 4-cell rows (S/N, type label, repayment period, rate) introduce a
         new loan type; 2-cell rows (repayment period, rate) are a further
         repayment-period tier of that same loan type, so the type label is
@@ -386,7 +386,7 @@ def _parse_leasing_table(table) -> list[RateRecord]:
     Parse the Leasing table into RateRecord objects.
 
     Layout: header row (Loan/Asset Type | Min Rate (% p.a.) | Max Rate (%)),
-    then one row per asset type — no separate caption row (see
+    then one row per asset type. No separate caption row (see
     _find_table_after_heading). Both the minimum and maximum published
     rate are scraped as separate records (rather than averaging) since
     both are genuine published numbers.
@@ -428,7 +428,7 @@ def _parse_pawning_table(table) -> list[RateRecord]:
     """
     Parse the Ran Surekum Naya Seva (gold loan/pawning) table into
     RateRecord objects. Layout: header row (blank | Interest Rate (p.a.)),
-    then data rows — no separate caption row (see _find_table_after_heading).
+    then data rows. No separate caption row (see _find_table_after_heading).
     """
     records = []
     rows = table.find_all("tr")[1:]

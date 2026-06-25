@@ -11,7 +11,7 @@ Method: Selenium for the FD ladder, plain HTTP for the savings rate.
 Sampath's rates page is a Nuxt.js app whose tab content is rendered fully
 into the DOM up front (not lazily on click), so the FD ladder can be read
 directly from a rendered page_source without needing to interact with any
-tab control — but the same markup is duplicated verbatim elsewhere in the
+tab control. But the same markup is duplicated verbatim elsewhere in the
 DOM (apparently a separate desktop/mobile layout branch), so every record
 parsed must be de-duplicated by (tenure, payment, rate) or each row would
 be stored twice.
@@ -22,7 +22,7 @@ that, on inspection, has a content-management bug: every category in its
 Rates", "Treasury Bills & REPO Rates") returns the *same* savings-account
 items regardless of category, so it cannot be used to source Term Deposit
 rates at all. It is still useful for the headline Savings rate, since that
-specific item ("Normal Savings Accounts - Double S") is itself correct —
+specific item ("Normal Savings Accounts - Double S") is itself correct;
 only the category groupings around it are broken.
 """
 
@@ -89,7 +89,7 @@ def _is_fd_ladder_table(table) -> bool:
 def _parse_fd_table(table) -> list[tuple[int, str, float, float | None]]:
     """
     Parse one FD ladder table into (tenure_months, payment, rate, aer)
-    tuples. Day-based tenure rows (e.g. "75 Days") are skipped — only
+    tuples. Day-based tenure rows (e.g. "75 Days") are skipped. Only
     whole-month tenures fit this project's tenure_months column.
     """
     results = []
@@ -149,7 +149,7 @@ def _scrape_fd_ladder() -> list[RateRecord]:
 def _scrape_savings_rate() -> list[RateRecord]:
     """
     Fetch the headline Normal Savings Account rate from the JSON API. Only
-    the base rate is used — the API's bonus-tier sub-table for this same
+    the base rate is used. The API's bonus-tier sub-table for this same
     product is left unparsed, since the surrounding category data is known
     to be unreliable (see module docstring) and the base rate alone is
     sufficient to keep this comparable to every other bank's savings entry.

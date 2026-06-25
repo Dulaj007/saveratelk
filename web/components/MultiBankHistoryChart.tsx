@@ -2,7 +2,7 @@
  * components/MultiBankHistoryChart.tsx
  *
  * One line per bank on a shared time axis, for the history chart shown
- * inside each FD-tenure / savings-category sub-tab — on the home page
+ * inside each FD-tenure / savings-category sub-tab. On the home page
  * that's every bank that has data for that tenure/category, and on a
  * per-bank detail page it naturally renders as a single line, since the
  * page already filtered the rows down to that one bank before pivoting.
@@ -12,12 +12,12 @@
  * pair, not enough distinct hues for up to ~11 banks).
  *
  * Lines are drawn as steps, not smooth curves: a published rate holds
- * flat until the day it actually changes, then jumps — a smooth diagonal
+ * flat until the day it actually changes, then jumps. A smooth diagonal
  * between two readings would imply the rate drifted continuously in
  * between, which isn't what happened and reads as a vague blur of
  * crossing lines rather than a clear up/down move on the day it occurred.
  *
- * A short flat-looking line here usually isn't a bug — it means the
+ * A short flat-looking line here usually isn't a bug. It means the
  * scraper simply hasn't been running long enough yet to have recorded a
  * rate change. There's no public archive of "what was this bank's rate
  * last year" to backfill from (banks only ever publish today's number),
@@ -102,7 +102,7 @@ export default function MultiBankHistoryChart({ data, series, title }: Props) {
       </ResponsiveContainer>
       {isSparse && (
         <p className="mt-2 text-xs text-gray-400 dark:text-neutral-500">
-          Only {data.length} day{data.length === 1 ? "" : "s"} of history recorded so far — the trend will fill in as more daily scrapes come in.
+          Only {data.length} day{data.length === 1 ? "" : "s"} of history recorded so far. The trend will fill in as more daily scrapes come in.
         </p>
       )}
     </div>

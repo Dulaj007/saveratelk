@@ -2,7 +2,7 @@
  * lib/logos.ts
  *
  * Manifest of which active banks have a logo file under public/logos
- * (fetched from each bank's own website — see web/public/logos), keyed by
+ * (fetched from each bank's own website, see web/public/logos), keyed by
  * bank code. A bank missing here (e.g. "panasia", whose site sits behind a
  * bot-challenge that blocks a plain fetch) falls back to the initials
  * monogram rendered by components/BankLogo.tsx instead of a broken <img>.

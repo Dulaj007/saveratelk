@@ -23,7 +23,7 @@ located by matching their row content rather than position or class:
 
 The lending-product tables (Lease Facilities, Personal Loans, Home Loans,
 Gold Loans Pawning, Education Loans, All Other Advances, credit card
-interest) are likewise un-captioned at the <table> level — their section
+interest) are likewise un-captioned at the <table> level. Their section
 titles ("Lease Facilities" etc.) are separate heading elements above the
 <table>, not part of it. They are located the same way as FD/savings: by
 distinctive row/column content that survives a page reshuffle:
@@ -277,7 +277,7 @@ def _parse_tiered_loan_table(table, product_type: str) -> list[RateRecord]:
     than guessing a number; cells reading "N/A" or "-" are skipped.
 
     The header row has no leading label cell (just one cell per tenure),
-    while every data row has an extra leading tier-label cell — so a data
+    while every data row has an extra leading tier-label cell, so a data
     row's rate for header column index N sits at cells[N + 1], not cells[N].
     """
     records = []
@@ -336,7 +336,7 @@ def _parse_label_rate_table(
     cell is a label and second cell holds a numeric percentage. Rows quoting
     only a margin formula (e.g. "AWPLR + 1.50%", no flat number) are skipped.
 
-    If label_filter is given, only rows whose label matches it are kept —
+    If label_filter is given, only rows whose label matches it are kept,
     used to pull just the overdraft rows out of the "All Other Advances"
     table, which otherwise mixes in unrelated products (Fixed Loans, Hire
     Purchase Financing, etc.) under one heading.

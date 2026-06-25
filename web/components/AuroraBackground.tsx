@@ -3,13 +3,13 @@
  *
  * Ambient depth cue behind every page, replacing the old drifting-dots
  * canvas with a few large, soft-edged color blobs (blue/violet/cyan)
- * blurred heavily and drifting slowly — the "bubble lighting" glow effect
+ * blurred heavily and drifting slowly: the "bubble lighting" glow effect
  * common to modern dark fintech/SaaS UIs. Pure CSS (no canvas, no
  * per-frame JS): each blob is a plain absolutely-positioned div with an
  * animated transform, defined in globals.css so the keyframes can also
  * respect prefers-reduced-motion via a plain media query.
  *
- * Server Component — nothing here needs the browser.
+ * Server Component, since nothing here needs the browser.
  */
 
 export default function AuroraBackground() {

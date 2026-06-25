@@ -3,7 +3,7 @@
  *
  * Generates the social-share preview image (Open Graph + Twitter card) at
  * request time via next/og, applied to every page that doesn't define its
- * own opengraph-image — there's no static design asset to keep in sync,
+ * own opengraph-image. There's no static design asset to keep in sync,
  * and this reuses the same red/blue "SaveRateLK" wordmark shown in the
  * site's own header and footer.
  */

@@ -8,7 +8,7 @@
  * back to a colored initials monogram for banks lib/logos.ts has no entry
  * for (their site sits behind a bot-challenge that blocks a plain fetch).
  *
- * Server Component — purely presentational, no client state needed.
+ * Server Component, purely presentational, no client state needed.
  */
 
 import Image from "next/image";

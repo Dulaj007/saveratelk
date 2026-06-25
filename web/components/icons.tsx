@@ -4,7 +4,7 @@
  * Small hand-rolled line-icon set, one per rate category, so the "Today's
  * Best Rates" cards (and anywhere else a category needs a glance-able
  * identity) can be read by shape instead of by reading a text label first.
- * Deliberately not an icon library — nine simple stroke paths don't
+ * Deliberately not an icon library: nine simple stroke paths don't
  * justify a new dependency, and keeping them inline matches how
  * ThemeToggle's sun/moon icons are already done in this project.
  *
@@ -25,7 +25,7 @@ const base = {
   strokeLinejoin: "round" as const,
 };
 
-/** Fixed Deposit — a locked-in rate, shown as a percent sign. */
+/** Fixed Deposit, a locked-in rate, shown as a percent sign. */
 export function IconPercent({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -36,7 +36,7 @@ export function IconPercent({ className }: IconProps) {
   );
 }
 
-/** Savings — growth over time. */
+/** Savings: growth over time. */
 export function IconTrendingUp({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -67,7 +67,7 @@ export function IconHome({ className }: IconProps) {
   );
 }
 
-/** Personal Loan — a wallet. */
+/** Personal Loan, a wallet. */
 export function IconWallet({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -78,7 +78,7 @@ export function IconWallet({ className }: IconProps) {
   );
 }
 
-/** Leasing / Vehicle Loan — a car. */
+/** Leasing / Vehicle Loan, a car. */
 export function IconCar({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -90,7 +90,7 @@ export function IconCar({ className }: IconProps) {
   );
 }
 
-/** Education Loan — a graduation cap. */
+/** Education Loan, a graduation cap. */
 export function IconCap({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -100,7 +100,7 @@ export function IconCap({ className }: IconProps) {
   );
 }
 
-/** Pawning / Gold Loan — a gem. */
+/** Pawning / Gold Loan, a gem. */
 export function IconGem({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -110,7 +110,7 @@ export function IconGem({ className }: IconProps) {
   );
 }
 
-/** Overdraft — running below zero. */
+/** Overdraft: running below zero. */
 export function IconMinusCircle({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -140,7 +140,7 @@ export function IconExternalLink({ className }: IconProps) {
   );
 }
 
-/** Footer: Contact us — an envelope. */
+/** Footer: Contact us, an envelope. */
 export function IconMail({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -150,7 +150,7 @@ export function IconMail({ className }: IconProps) {
   );
 }
 
-/** Nav: Rates — a simple bar chart. */
+/** Nav: Rates, a simple bar chart. */
 export function IconBarChart({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -181,7 +181,7 @@ export function IconInfo({ className }: IconProps) {
   );
 }
 
-/** Mobile nav toggle — hamburger. */
+/** Mobile nav toggle: hamburger. */
 export function IconMenu({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
@@ -190,7 +190,7 @@ export function IconMenu({ className }: IconProps) {
   );
 }
 
-/** Mobile nav toggle — close. */
+/** Mobile nav toggle: close. */
 export function IconClose({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
