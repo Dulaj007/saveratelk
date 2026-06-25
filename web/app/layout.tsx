@@ -16,6 +16,7 @@ import MobileTopBar from "@/components/MobileTopBar";
 import MobileTabBar from "@/components/MobileTabBar";
 import AuroraBackground from "@/components/AuroraBackground";
 import Footer from "@/components/Footer";
+import SplashScreen from "@/components/SplashScreen";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"] });
@@ -28,7 +29,7 @@ const SITE_DESCRIPTION =
 /**
  * `metadataBase` is what lets every page below just write a relative path
  * (or nothing at all, falling back to opengraph-image.tsx) for openGraph/
- * twitter images and have Next resolve it to a full URL — without it,
+ * twitter images and have Next resolve it to a full URL. Without it,
  * those resolve relative to the request itself, which breaks for anyone
  * sharing a link from a tool that fetches the page server-side.
  */
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className={`${geist.className} min-h-screen bg-black text-neutral-100 antialiased`}>
+        <SplashScreen />
         <AuroraBackground />
 
         <SiteHeader />
@@ -70,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Bottom app-style tab bar, mobile only (Nav/SiteHeader take over
             at md: and up). Needs its own Suspense boundary the same way
-            HomeRatesSection does — it reads the ?tab= query too. */}
+            HomeRatesSection does, since it reads the ?tab= query too. */}
         <Suspense>
           <MobileTabBar />
         </Suspense>
