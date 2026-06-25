@@ -1,0 +1,50 @@
+# Daily rate scrape, replacing the old VPS crontab (every 6h + a 10-minute
+# retry poll) now that the site reads from Neon via ISR-cached pages
+# (web/, revalidate=86400) instead of hitting the database per request —
+# see scraper/config.py's "Scrape scheduling and retry policy" section for
+# the full reasoning.
+#
+# Two triggers instead of one frequent poll: the main scrape once a day,
+# and a single retry check offset by RETRY_DELAY_MINUTES (scraper/config.py)
+# to pick up any bank that failed in the main run. ubuntu-latest's runner
+# image ships Google Chrome pre-installed, which is all Selenium (used for
+# 3 of the 11 banks) needs — webdriver-manager (a scraper dependency)
+# downloads a matching chromedriver at run time.
+name: Daily rate scrape
+
+on:
+  schedule:
+    # 00:00 UTC = 05:30 Sri Lanka time — main scrape.
+    - cron: "0 0 * * *"
+    # 00:20 UTC — single retry pass for whatever failed at 00:00.
+    - cron: "20 0 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: scraper
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Main scrape
+        if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
+        run: python main.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Retry pass
+        if: github.event.schedule == '20 0 * * *'
+        run: python retry_failed.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
