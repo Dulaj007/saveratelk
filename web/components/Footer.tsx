@@ -1,12 +1,17 @@
 /**
  * components/Footer.tsx
  *
- * Site footer — replaces the old single copyright line in app/layout.tsx
- * with something that actually orients a visitor who scrolls all the
- * way down: the brand mark + a one-line description, a few quick links
- * back into the homepage's own sections (mirroring Nav, since the site
- * has no other pages to link to), the "Contact us" popup (ContactModal),
+ * Site footer. Replaces the old single copyright line in app/layout.tsx
+ * with something that orients a visitor who scrolls all the way down:
+ * the brand mark and a one-line description, a few quick links back
+ * into the homepage's own sections (mirroring Nav, since the site has
+ * no other pages to link to), the "Contact us" popup (ContactModal),
  * and finally the legal/data-source line plus a "Made with care" credit.
+ *
+ * Stacked in a single column on mobile (brand, then links, then contact
+ * button, each full width) instead of letting flex-wrap decide the
+ * layout, since wrapping three differently-sized blocks looked uneven on
+ * narrow screens. Desktop keeps the original side-by-side row.
  *
  * Reads CONTACT_EMAIL server-side and passes it down as a prop rather
  * than having ContactModal read it itself, since that's a Client
@@ -15,9 +20,9 @@
  *
  * Two separate link sets, like Nav/MobileTabBar: desktop's carries a
  * `#id` hash to scroll-to-anchor on the one continuous page; mobile's
- * carries none, since landing on a section's hash anchor scrolls past
+ * carries none. Landing on a section's hash anchor scrolls past
  * whatever sits above it within that section (e.g. CategoryPills, which
- * comes before #rates-table) instead of the section's actual top — for
+ * comes before #rates-table) instead of the section's actual top. For
  * mobile's tab-switch model, `?tab=` alone (plus Next's default
  * scroll-to-top-on-navigation) is what gets it right.
  */
@@ -43,7 +48,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black px-4 pb-24 pt-10 text-sm text-neutral-400 md:pb-10">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-wrap items-start justify-between gap-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-8">
           <div className="max-w-sm">
             <div className="flex items-center text-lg font-extrabold text-white">
               % <span className="pl-2 text-red-500">Save</span><span className="text-blue-500">Rate</span>LK
@@ -54,7 +59,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm md:hidden">
+          <nav className="grid grid-cols-2 gap-3 text-sm sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-2 md:hidden">
             {QUICK_LINKS_MOBILE.map((link) => (
               <Link key={link.href} href={link.href} className="text-neutral-400 transition-colors hover:text-white">
                 {link.label}
@@ -73,7 +78,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} SaveRateLK · rates are indicative — always confirm with your bank.</span>
+          <span>© {new Date().getFullYear()} SaveRateLK. Rates are indicative, always confirm with your bank.</span>
           <span>Data sourced from each bank&apos;s official published pages.</span>
         </div>
 
