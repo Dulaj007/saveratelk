@@ -1,10 +1,10 @@
 /**
  * components/Nav.tsx
  *
- * Desktop nav: a small floating pill — Top / Rates / Calculator / About
- * — instead of a full-width header bar, for an app-like feel rather than
+ * Desktop nav: a small floating pill (Top / Rates / Calculator / About)
+ * instead of a full-width header bar, for an app-like feel rather than
  * a website chrome. SiteHeader positions and hides/shows it on scroll;
- * this component owns which button is highlighted. Hidden below `md:` —
+ * this component owns which button is highlighted. Hidden below `md:`.
  * MobileTabBar is the equivalent for small screens, a bottom tab bar
  * with different (tap-to-switch-screens, not scroll) behavior, since
  * "scroll to an anchor on one long page" doesn't fit a phone screen the
@@ -12,7 +12,7 @@
  *
  * All four are same-page anchors into the homepage's own sections
  * (#top/#rates-table/#calculator/#about), so the whole site behaves like
- * one continuous scrolling page rather than separate routes — the
+ * one continuous scrolling page rather than separate routes. The
  * highlighted button on the homepage is whichever section the visitor
  * has scrolled to (a classic scrollspy: the last section whose top has
  * scrolled past the nav). The standalone /about route still exists for
@@ -39,7 +39,7 @@ const LINKS = [
   { id: "about", href: "/#about", label: "About", icon: IconInfo },
 ];
 
-/** Last of SECTION_IDS whose element has scrolled at or above `offset` — the classic scrollspy rule. Homepage only. */
+/** Last of SECTION_IDS whose element has scrolled at or above `offset`. The classic scrollspy rule. Homepage only. */
 function useActiveSection(enabled: boolean): string {
   const [active, setActive] = useState(SECTION_IDS[0]);
 

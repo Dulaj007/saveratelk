@@ -3,7 +3,7 @@
  *
  * Loans & Cards comparison, one sub-tab per lending/credit product type
  * (Credit Cards, Housing Loans, Personal Loans, Leasing, Education Loans,
- * Pawning, Overdraft) — the same sub-tab + history-chart treatment
+ * Pawning, Overdraft), the same sub-tab + history-chart treatment
  * FDRatesByTenure and SavingsByCategory use, so all three main tabs read
  * consistently instead of Loans & Cards being the one flat, undifferentiated
  * list. Grouped by product_type directly rather than the notes-keyword
@@ -17,11 +17,11 @@
  * table for every bank.
  *
  * Unlike deposit rates, a lower loan/card rate is the better deal for the
- * borrower, so every table and chart here is built with lowerIsBetter —
+ * borrower, so every table and chart here is built with lowerIsBetter,
  * otherwise the "Best rate" badge and the history trend would track the
  * most expensive loan instead of the cheapest one.
  *
- * Server Component — all grouping/pivoting happens once at render time.
+ * Server Component, since all grouping/pivoting happens once at render time.
  */
 
 import { RateRow, HistoryRow } from "@/lib/db";
@@ -40,7 +40,7 @@ export default function LendingRates({ rows, history }: Props) {
   if (rows.length === 0) {
     return (
       <p className="text-gray-500 text-sm mt-4 dark:text-neutral-400">
-        No loan or credit card rate data available yet — many banks only quote these
+        No loan or credit card rate data available yet. Many banks only quote these
         individually rather than publishing a flat rate.
       </p>
     );
@@ -54,14 +54,14 @@ export default function LendingRates({ rows, history }: Props) {
       history
         .filter((h) => h.product_type === type)
         .map((h) => ({ bankCode: h.bank_code, bankName: h.bank_name, rate: Number(h.interest_rate), scrapedAt: h.scraped_at })),
-      true // lowerIsBetter — track each bank's cheapest variant, not its most expensive
+      true // lowerIsBetter: track each bank's cheapest variant, not its most expensive
     );
 
     const content = (
       <div className="space-y-6">
         <RateTable rows={typeRows} lowerIsBetter />
         <section className="surface-glow rounded-xl border border-gray-200 p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950">
-          <MultiBankHistoryChart data={data} series={series} title={`${LENDING_PRODUCT_LABELS[type]} — rate history`} />
+          <MultiBankHistoryChart data={data} series={series} title={`${LENDING_PRODUCT_LABELS[type]} rate history`} />
         </section>
       </div>
     );

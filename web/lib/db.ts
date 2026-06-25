@@ -5,18 +5,18 @@
  *
  * Provides typed query helpers that the page components use to read current
  * rates, rate history, and CBSL benchmarks from PostgreSQL. This module is
- * server-only — all queries run inside Next.js Server Components or Route
+ * server-only: all queries run inside Next.js Server Components or Route
  * Handlers, never in the browser.
  *
  * "Current" rates = the most recent scraped_at row per bank/product/tenure.
  * History = all rows for a given bank/product/tenure ordered by scraped_at.
  *
  * Connects to Neon (or any standard Postgres) via a single DATABASE_URL
- * rather than discrete DB_HOST/PORT/etc — Neon requires SSL, hence the
+ * rather than discrete DB_HOST/PORT/etc. Neon requires SSL, hence the
  * explicit `ssl` option (Neon's certs validate fine under the default
  * strict `rejectUnauthorized: true`, no need to relax it). `max` is kept
  * small since most pages are ISR-cached (see each page's `revalidate`
- * export) — actual concurrent DB-hitting requests are rare, just the
+ * export); actual concurrent DB-hitting requests are rare, just the
  * occasional background revalidation, not every visitor.
  */
 
@@ -24,7 +24,7 @@ import { Pool } from "pg";
 import { ProductType } from "./productTypes";
 
 if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is not set — copy .env.example to .env.local and fill in your Neon connection string.");
+  throw new Error("DATABASE_URL is not set. Copy .env.example to .env.local and fill in your Neon connection string.");
 }
 
 /** Shared connection pool, created once per process. */
@@ -139,7 +139,7 @@ export async function getBanks(): Promise<Bank[]> {
 
 /**
  * Return the full rate history for a product type across every active
- * bank — every tenure, every payment frequency, every named savings
+ * bank: every tenure, every payment frequency, every named savings
  * product, all in one query. Used to build the per-tenure/per-category
  * history charts shown inside each sub-tab, which need every bank's
  * trend line at once rather than one bank at a time (see lib/history.ts

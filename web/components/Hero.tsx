@@ -1,20 +1,20 @@
 /**
  * components/Hero.tsx
  *
- * Full-bleed hero banner — background photo with a dark gradient overlay
+ * Full-bleed hero banner, a background photo with a dark gradient overlay
  * (so text and whatever's passed in as `children` stay readable
- * regardless of what's in the image underneath) — shared by the homepage
+ * regardless of what's in the image underneath), shared by the homepage
  * and the About page so both read as the same site rather than different
  * templates. `min-h-screen` gives it a stable floor: without it, a page
  * with shorter `children` (About) makes this section shorter, and since
  * the photo is `object-cover` inside it, a shorter section means a more
- * tightly cropped, oddly-framed slice of the same image — the floor
+ * tightly cropped, oddly-framed slice of the same image. The floor
  * keeps the crop consistent no matter what's rendered below the
  * headline. Content taller than the screen (homepage's cards, About's
  * bank list) still grows the section past that floor as normal.
  *
  * `id="top"` is Nav's scrollspy anchor for the homepage's "Top" button.
- * Also carries a large "SaveRateLK" wordmark above the "Updated" badge —
+ * Also carries a large "SaveRateLK" wordmark above the "Updated" badge.
  * the small brand mark in MobileTopBar/SiteHeader is just for orientation
  * while scrolled elsewhere, this is the real one.
  *
@@ -30,10 +30,10 @@
  * centered padding untouched. Also cancels out that <main>'s top padding
  * with `-mt-16` (clearing the fixed, floating nav pill) so the image
  * still starts flush at y=0 instead of leaving a band of plain page
- * background above it — every other page keeps that top padding so its
+ * background above it. Every other page keeps that top padding so its
  * content clears the fixed nav.
  *
- * Plain presentational component — no hooks of its own.
+ * Plain presentational component, no hooks of its own.
  */
 
 import Image from "next/image";
@@ -66,7 +66,7 @@ export default function Hero({ updatedLabel, bankCount, children }: Props) {
 
         <p className="mt-4 max-w-xl text-base text-neutral-300">
           Fixed deposits, savings, credit cards &amp; loans
-          {bankCount > 0 ? ` — from ${bankCount} banks, updated daily.` : " — updated daily."}
+          {bankCount > 0 ? `, from ${bankCount} banks, updated daily.` : ", updated daily."}
         </p>
 
         {children}

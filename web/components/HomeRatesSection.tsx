@@ -7,11 +7,11 @@
  *    highlighted state (inside Hero) and which flat table
  *    CategoryFlatTable renders.
  *  - `tab` (read from the URL's `?tab=` query, not local state): on
- *    mobile, which of the four sections — Top / Rates / Calculator /
- *    About — is shown as its own full screen, app-style, instead of one
+ *    mobile, which of the four sections (Top / Rates / Calculator /
+ *    About) is shown as its own full screen, app-style, instead of one
  *    continuous scroll. MobileTabBar (the bottom nav) is what actually
  *    changes this, by linking to `/?tab=rates` etc.
- *  - On desktop (`md:` and up) `tab` is ignored entirely — every section
+ *  - On desktop (`md:` and up) `tab` is ignored entirely. Every section
  *    renders unconditionally and Nav's floating top pill scrollspies
  *    between them as before. `tabClass()` is the one-line trick that
  *    makes this work without two separate render paths: hidden/block
@@ -20,7 +20,7 @@
  *
  * Hero, TopRatesToday, CategoryPills, and CategoryFlatTable are all plain
  * presentational components, not Server Components, since they need to
- * live inside this Client Component tree — but none of them do any data
+ * live inside this Client Component tree, but none of them do any data
  * fetching itself; all rows are computed once on the server in
  * app/page.tsx and passed down as props.
  *
@@ -62,7 +62,7 @@ type MobileTab = "top" | "rates" | "calculator" | "about";
 /**
  * Below `md:`, visible only when it's the active mobile tab; at `md:` and
  * up, always visible. `pb-16` only matters on mobile, where each tab is
- * its own isolated screen — without it, whatever's at the bottom of the
+ * its own isolated screen. Without it, whatever's at the bottom of the
  * active section (e.g. the calculator card) runs straight into Footer
  * with no breathing room.
  */
@@ -90,7 +90,7 @@ export default function HomeRatesSection({
           {/* Fades from solid black (matching Hero's own ending color) down to
               transparent, so AuroraBackground's glow blobs ease into view
               instead of snapping on the instant Hero's opaque section ends.
-              Desktop only — on mobile this tab is its own isolated screen
+              Desktop only. On mobile this tab is its own isolated screen
               with no preceding Hero to fade from, so it just reads as a
               stray dark band sitting on top of nothing. */}
           <div
@@ -115,16 +115,18 @@ export default function HomeRatesSection({
         </div>
       </div>
 
-      <div id="calculator" className={`${tabClass(tab === "calculator")} scroll-mt-24`}>
+      <div id="calculator" className={`${tabClass(tab === "calculator")} scroll-mt-24 `}>
+        <div className="my-10 z-10 relative">
         <HomeCalculator fdRates={fdRates} savingsRates={savingsRates} />
+        </div>
       </div>
 
       <div className={tabClass(tab === "about")}>
         {/* Overlaps whatever came before it (negative margin, not absolute,
             so it doesn't push AboutSection down) with a fade that's solid
-            black at the seam and transparent above it — masks the hard
+            black at the seam and transparent above it, masking the hard
             line where the previous section's background meets
-            AboutSection's own solid-black starting color. Desktop only —
+            AboutSection's own solid-black starting color. Desktop only.
             on mobile this tab is its own isolated screen with nothing
             above it to mask, so it just reads as a stray dark band. */}
         <div

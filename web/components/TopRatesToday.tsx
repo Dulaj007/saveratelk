@@ -1,7 +1,7 @@
 /**
  * components/TopRatesToday.tsx
  *
- * "Top rates today" — one card per product category showing whichever
+ * "Top rates today", one card per product category showing whichever
  * bank currently has the best deal, rendered as Hero's children so the
  * cards sit as frosted glass over the tail end of the hero photo instead
  * of on the plain page background. Best Fixed Deposit and Best Savings
@@ -10,15 +10,15 @@
  *
  * Both headline cards name the specific product the rate came from (an
  * FD's tenure, a savings account's tier/plan name) rather than just a bare
- * "X.XX% p.a." — a fixed deposit's best rate is almost always its longest
+ * "X.XX% p.a." A fixed deposit's best rate is almost always its longest
  * tenure, and showing the number with no tenure attached reads as "the"
  * rate when it's really one specific term among eight.
  *
  * Always shows every category's best rate regardless of which hero pill
- * is active — unlike the flat table further down the page, this section
+ * is active. Unlike the flat table further down the page, this section
  * doesn't filter by the selected category.
  *
- * Server Component — no client state needed.
+ * Server Component, no client state needed.
  */
 
 import Image from "next/image";
@@ -84,7 +84,7 @@ const LENDING_ICONS: Record<LendingProductType, (props: { className?: string }) 
  * The annualized rate to rank a row by. Some long-tenure FDs (e.g. a
  * 10-year term) publish `interest_rate` as a cumulative/total-term figure
  * rather than a per-annum one, which makes it look far higher than it
- * actually is — `annual_effective_rate` is the apples-to-apples number, so
+ * actually is. `annual_effective_rate` is the apples-to-apples number, so
  * prefer it whenever the bank module recorded one.
  */
 function rankRate(row: RateRow): number {
@@ -150,7 +150,7 @@ function SmallCard({ h }: { h: Highlight }) {
 }
 
 export default function TopRatesToday({ fdRates, savingsRates, lendingRates }: Props) {
-  // "Best Fixed Deposit" compares the 12-month/1-year tenure specifically — FDs of
+  // "Best Fixed Deposit" compares the 12-month/1-year tenure specifically. FDs of
   // different lengths aren't a fair head-to-head, and 1 year is the term savers
   // most commonly shop for.
   const oneYearFdRates = fdRates.filter((r) => r.tenure_months === 12);

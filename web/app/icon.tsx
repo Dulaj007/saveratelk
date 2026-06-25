@@ -1,7 +1,7 @@
 /**
  * app/icon.tsx
  *
- * Generates the site favicon at request time via next/og — there is no
+ * Generates the site favicon at request time via next/og. There is no
  * static icon asset to keep in sync, and this renders the same "%" brand
  * mark used everywhere else (Hero, MobileTopBar, Footer) instead of the
  * default Next.js icon.

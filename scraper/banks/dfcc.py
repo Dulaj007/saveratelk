@@ -13,15 +13,15 @@ Deposits, Interest Rates, Lending Rates) are selected via a "?tab=" query
 parameter rather than ordinary navigation links, and the tab content does
 not exist in the page until JavaScript runs. The dedicated FD product page
 (rates-and-tariff's sibling "DFCC Fixed Deposits" page) only shows a
-secondary "Special" day-based product — the standard tenor ladder lives
+secondary "Special" day-based product. The standard tenor ladder lives
 only on the hub page's fixed_deposits tab.
 
 The Fixed Deposits ladder itself renders as a *transposed* table: one
 column per tenure, and rows alternating between a payment-frequency label
 ("Nominal", "Monthly", "Quarterly", "Bi Annually", "Annually") and its AER,
 rather than the (tenure-per-row) layout every other bank in this project
-uses. The ladder also spans two separate tables — a short-tenor one (1
-Month to 1 Year) and a long-tenor one (1 Year to 5 Years) — which overlap
+uses. The ladder also spans two separate tables: a short-tenor one (1
+Month to 1 Year) and a long-tenor one (1 Year to 5 Years), which overlap
 at the "1 Year" column; the short-tenor table's "1 Year" column is skipped
 to avoid storing that overlap twice.
 """

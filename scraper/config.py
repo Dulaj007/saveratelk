@@ -21,14 +21,14 @@ load_dotenv()
 # Database
 #
 # A single connection string (Neon, or any standard Postgres) rather than
-# discrete host/port/etc — psycopg2 accepts a full DSN directly, and
+# discrete host/port/etc. psycopg2 accepts a full DSN directly, and
 # Neon's connection string already carries sslmode=require.
 # =============================================================================
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError(
-        "DATABASE_URL is not set — copy .env.example to .env and fill in your Neon connection string."
+        "DATABASE_URL is not set. Copy .env.example to .env and fill in your Neon connection string."
     )
 
 
@@ -90,20 +90,20 @@ SELENIUM_HEADLESS = True
 #
 # The site is an information board, not a live tool: it's designed to
 # pull fresh data once a day (every SCRAPE_INTERVAL_HOURS, via the
-# scheduled GitHub Actions workflow — see ../.github/workflows/scrape.yml),
+# scheduled GitHub Actions workflow, see ../.github/workflows/scrape.yml),
 # never on a page view. The web app only ever reads whatever the last
 # successful scrape stored, and shows that row's timestamp as "last
-# updated" — pages are also ISR-cached for SCRAPE_INTERVAL_HOURS worth of
+# updated". Pages are also ISR-cached for SCRAPE_INTERVAL_HOURS worth of
 # seconds (see each page's `revalidate` export in web/), so a normal
 # request never touches the database at all, let alone re-scrapes.
 #
-# When a bank fails during the scheduled run, it is NOT retried inline —
-# the run continues immediately to the next bank, and the UI keeps
+# When a bank fails during the scheduled run, it is NOT retried inline.
+# The run continues immediately to the next bank, and the UI keeps
 # showing that bank's last successfully stored rates. Instead, exactly one
 # follow-up attempt is scheduled RETRY_DELAY_MINUTES later, handled by the
 # workflow's second scheduled trigger (which runs retry_failed.py instead
 # of main.py) so the main run never blocks waiting on it. If that single
-# follow-up also fails, no further retry is scheduled — the bank simply
+# follow-up also fails, no further retry is scheduled. The bank simply
 # waits for the next normal SCRAPE_INTERVAL_HOURS cycle, still showing its
 # last known data the whole time.
 # =============================================================================

@@ -2,15 +2,15 @@
  * components/FDRatesByTenure.tsx
  *
  * Fixed deposit comparison, one sub-tab per standard tenure (1 Month FD,
- * 3 Months FD, ... 5 Years FD) rather than all eight stacked vertically —
- * a flat wall of eight tables read as a spreadsheet dump; switching
+ * 3 Months FD, ... 5 Years FD) rather than all eight stacked vertically,
+ * since a flat wall of eight tables read as a spreadsheet dump; switching
  * between named tenures reads as "pick what you're comparing". Each
  * tenure's tab shows the existing two-column (Interest at Maturity /
  * Monthly Interest) comparison table plus a multi-bank history chart of
- * that tenure's at-maturity rate over time, so the trend — not just
- * today's snapshot — is visible without leaving the tab.
+ * that tenure's at-maturity rate over time, so the trend, not just
+ * today's snapshot, is visible without leaving the tab.
  *
- * Server Component — all grouping/pivoting happens once at render time
+ * Server Component, since all grouping/pivoting happens once at render time
  * from the rows and history already fetched by the page; only the tab
  * switching itself (in RateTabs) needs client state.
  */
@@ -120,7 +120,7 @@ export default function FDRatesByTenure({ rows, history }: Props) {
                         {isTop && <IconStar className="h-3.5 w-3.5 shrink-0 text-amber-500" />}
                       </div>
                       <p className="truncate text-xs text-gray-500 dark:text-neutral-400">
-                        {b.lastUpdated ? formatDate(b.lastUpdated) : "—"}
+                        {b.lastUpdated ? formatDate(b.lastUpdated) : "-"}
                         {" · "}
                         <a
                           href={b.ratesPageUrl}
@@ -140,7 +140,7 @@ export default function FDRatesByTenure({ rows, history }: Props) {
                         {maturityRate!.toFixed(2)}%
                       </p>
                     ) : (
-                      <p className="text-xl font-bold leading-tight text-gray-300 dark:text-neutral-600">—</p>
+                      <p className="text-xl font-bold leading-tight text-gray-300 dark:text-neutral-600">-</p>
                     )}
                     {b.maturity?.annual_effective_rate != null && (
                       <p className="text-[11px] text-gray-400 dark:text-neutral-500">
@@ -160,7 +160,7 @@ export default function FDRatesByTenure({ rows, history }: Props) {
         </section>
 
         <section className="surface-glow rounded-xl border border-gray-200 p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950">
-          <MultiBankHistoryChart data={data} series={series} title={`${TENURE_LABELS[tenureMonths]} — rate history`} />
+          <MultiBankHistoryChart data={data} series={series} title={`${TENURE_LABELS[tenureMonths]} rate history`} />
         </section>
       </div>
     );

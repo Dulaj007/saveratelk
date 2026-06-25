@@ -11,19 +11,19 @@ The page renders eighteen separate tables across many deposit products
 several savings account brands), all sharing the same generic "table"
 class with no distinguishing id. The standard Fixed Deposit ladder and the
 standard Savings Products table are therefore located by the *heading*
-text that immediately precedes them in the page — "Fixed deposits (Minimum
-deposit Rs. 5,000/-)" and "Saving Products" respectively — rather than by
+text that immediately precedes them in the page, "Fixed deposits (Minimum
+deposit Rs. 5,000/-)" and "Saving Products" respectively, rather than by
 table position, since a heading is far less likely to be reordered than a
 numeric table index.
 
 Each FD cell concatenates the nominal rate and the AER with no consistent
-separator (e.g. "6.75% 6.96% (AER)" or "7.25% 7.45%(AER)" — spacing varies),
+separator (e.g. "6.75% 6.96% (AER)" or "7.25% 7.45%(AER)", spacing varies),
 so both percentages are pulled out with one regex rather than split on a
 fixed delimiter.
 
 The same page also carries a flat "Interest Rates on Advances" table (a
 Description | Min. rate | Max. rate layout, located the same way as the FD
-and savings tables — by the <h4> heading immediately before it) and a
+and savings tables, by the <h4> heading immediately before it) and a
 sibling "Overdrafts" table of the same shape. Both are min/max ranges
 rather than single numbers; per project convention the lower bound is
 stored as interest_rate and the upper bound is recorded in notes. Rows
@@ -57,7 +57,7 @@ _SINGLE_RATE_PATTERN = re.compile(r"(\d+(?:\.\d+)?)\s*%")
 
 # Maps the exact "Description" / "Overdrafts" column label (first cell) of
 # the advances/overdrafts tables to the matching product_type. Rows whose
-# label isn't listed here are skipped — see module docstring.
+# label isn't listed here are skipped. See module docstring.
 _ADVANCES_LABEL_MAP = {
     "residential housing": "housing_loan",
     "personal loans": "personal_loan",
@@ -166,7 +166,7 @@ def _parse_min_max_table(table) -> list[RateRecord]:
     products outside this project's category list). Rows with no usable
     numeric min rate are also skipped (e.g. "Weekly AWPLR + 2.5%" facilities
     that have no flat percentage at all); the Credit Cards row is the one
-    case where the min cell is blank ("—") and the number lives in the max
+    case where the min cell is blank (rendered as a single dash character) and the number lives in the max
     cell instead ("28% p.a. / 2.3% monthly"), so the max cell is used as a
     fallback when the min cell has no match.
     """
@@ -189,7 +189,7 @@ def _parse_min_max_table(table) -> list[RateRecord]:
 
         primary_match = min_match or max_match
         if not primary_match:
-            continue  # e.g. "Weekly AWPLR + 2.5%" — no flat numeric rate
+            continue  # e.g. "Weekly AWPLR + 2.5%", no flat numeric rate
 
         notes_parts = []
         other_match = max_match if primary_match is min_match else min_match
@@ -241,7 +241,7 @@ def scrape() -> list[RateRecord]:
         records.extend(_parse_min_max_table(advances_table))
 
         # Unlike every other table on this page, "Overdrafts" has no <h4>
-        # heading of its own — "Overdrafts" is the literal text of its own
+        # heading of its own. "Overdrafts" is the literal text of its own
         # header row, and the table simply follows the Advances table
         # directly. Confirm that header text before trusting find_next, in
         # case the page ever reorders.

@@ -14,7 +14,7 @@ Rate(%). The two tables are distinguished by content (the FD table's rows
 mention "Fixed Deposit" or a tenure in months) rather than position, since
 NSB could reorder sections on the page. A third table (National Savings
 Certificates) carries an extra "table-hover" class and is intentionally
-excluded — it is a separate certificate product, not a standard deposit.
+excluded, since it is a separate certificate product, not a standard deposit.
 """
 
 import re

@@ -12,7 +12,7 @@ Note: the bank's commonly assumed domain (panasiabank.lk) does not resolve;
 the real site is pabcbank.com (confirmed via search, since the .lk domain
 the original bank registry assumed does not exist). The site also runs a
 Sucuri JavaScript bot-challenge in front of every page, which blocks plain
-HTTP requests outright — a real browser is required just to get past the
+HTTP requests outright, so a real browser is required just to get past the
 challenge, on top of the page itself being client-rendered.
 
 The Fixed Deposits table spans tenures across a two-row header: the first

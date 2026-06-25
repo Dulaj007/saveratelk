@@ -1,14 +1,13 @@
 /**
  * components/AboutContent.tsx
  *
- * "What is this, why does it exist, which banks" copy — written once
- * here so it can't drift apart between the standalone /about page and
+ * "What is this, why does it exist, which banks" copy. Written once here
+ * so it can't drift apart between the standalone /about page and
  * AboutSection (the same content inlined directly on the homepage after
  * the calculator).
  *
- * Plain presentational component — banks (with website links) are
- * fetched server-side and passed in; per-bank blurbs come from
- * lib/bankInfo.ts.
+ * Plain presentational component. Banks (with website links) are fetched
+ * server-side and passed in; per-bank blurbs come from lib/bankInfo.ts.
  */
 
 import { Bank } from "@/lib/db";
@@ -28,22 +27,21 @@ export default function AboutContent({ banks }: Props) {
       <section>
         <h2 className="text-lg font-bold text-white">What SaveRateLK does</h2>
         <p className="mt-2 text-sm leading-relaxed text-neutral-300">
-          SaveRateLK pulls together fixed deposit, savings, credit card, and
-          loan interest rates published by Sri Lanka&apos;s major banks and
-          lays them out side by side, so you can see who actually pays the
-          best rate today without visiting a dozen different bank websites.
+          SaveRateLK collects fixed deposit, savings, credit card, and loan
+          interest rates from Sri Lanka&apos;s major banks and puts them in
+          one place. You can see who pays the best rate today without
+          checking a dozen different bank websites.
         </p>
       </section>
 
       <section>
         <h2 className="text-lg font-bold text-white">Why it exists</h2>
         <p className="mt-2 text-sm leading-relaxed text-neutral-300">
-          Bank rates change often and aren&apos;t easy to compare — every
-          bank publishes them in its own format, usually a few clicks deep
-          on its own site. SaveRateLK exists purely to make that comparison
-          effortless: one page, every bank, the same numbers laid out the
-          same way, refreshed daily straight from each bank&apos;s own
-          published pages.
+          Bank rates change often and are hard to compare. Each bank
+          publishes its own rates in its own format, usually a few clicks
+          into its own site. SaveRateLK puts every bank&apos;s numbers on
+          one page, laid out the same way, updated daily from each
+          bank&apos;s own published pages.
         </p>
       </section>
 
@@ -51,8 +49,8 @@ export default function AboutContent({ banks }: Props) {
         <h2 className="text-lg font-bold text-white">Banks covered</h2>
         <p className="mt-2 text-sm leading-relaxed text-neutral-300">
           Rates are collected directly from the official pages of the
-          banks below. Each is a real, licensed Sri Lankan bank — tap one
-          to visit its site directly.
+          banks below. Each one is a licensed Sri Lankan bank. Tap a bank
+          to visit its website.
         </p>
 
         <CardGlowGrid>

@@ -1,7 +1,7 @@
 /**
  * app/page.tsx
  *
- * Home page — the main rate comparison view.
+ * Home page, the main rate comparison view.
  *
  * Fetches the most recent rates for every active bank from the database
  * (server-side): Fixed Deposits and Savings directly, plus every lending
@@ -9,8 +9,8 @@
  * leasing/education/pawning/overdraft) to match the four categories shown
  * as hero pills. HomeRatesSection (a Client Component) owns which of those
  * four is selected and renders the matching flat table; everything above
- * it — the JSON-LD block, the hero image/headline, and the always-visible
- * "Top rates today" highlights — is plain server-rendered markup.
+ * it (the JSON-LD block, the hero image/headline, and the always-visible
+ * "Top rates today" highlights) is plain server-rendered markup.
  */
 
 import type { Metadata } from "next";
@@ -86,7 +86,7 @@ export default async function HomePage() {
       />
 
       {/* HomeRatesSection reads the ?tab= query (useSearchParams) to decide
-          which section is the active mobile tab — that hook requires a
+          which section is the active mobile tab. That hook requires a
           Suspense boundary so the rest of this statically-generated page
           isn't forced into fully dynamic rendering. */}
       <Suspense>

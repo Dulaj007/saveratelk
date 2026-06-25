@@ -2,14 +2,14 @@
  * lib/calculator.ts
  *
  * FD/savings maturity-value math, used by HomeCalculator (the calculator
- * embedded directly on the homepage — there is no separate /calculator
+ * embedded directly on the homepage, since there is no separate /calculator
  * page).
  *
  * Calculation model (deliberately simple and stated up front to the user,
  * since exact compounding conventions differ bank to bank):
  *   - "At maturity" / no fixed payout frequency: the AER (if known, else
  *     the nominal rate as a fallback) is compounded once per year over the
- *     deposit's term — MaturityValue = Principal * (1 + AER/100)^years.
+ *     deposit's term: MaturityValue = Principal * (1 + AER/100)^years.
  *   - A fixed payout frequency (monthly/quarterly/semi-annually/annually):
  *     each payout is Principal * nominalRate/100 / paymentsPerYear, and the
  *     total shown is the principal plus all payouts received over the term

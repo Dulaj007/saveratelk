@@ -4,7 +4,7 @@
  * Per-bank detail page.
  *
  * Displays the bank's current rates, each grouped into the same per-
- * tenure/per-category sub-tabs as the home page — and since FDRatesByTenure
+ * tenure/per-category sub-tabs as the home page. Since FDRatesByTenure
  * and SavingsByCategory already chart whichever banks are passed in, here
  * that's just this one bank's trend line per sub-tab, replacing what used
  * to be a single standalone "12-month FD history" chart at the top of the

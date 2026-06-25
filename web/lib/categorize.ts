@@ -10,7 +10,7 @@
  * Two groupings live here:
  *   - FD tenures are bucketed into the eight standard terms savers
  *     actually compare across banks. Non-standard tenures (e.g. 7, 9, 13,
- *     15, 30, 100, 120 months) are deliberately left out of this view —
+ *     15, 30, 100, 120 months) are deliberately left out of this view:
  *     they still exist in the database and on that bank's raw history,
  *     just not in the cross-bank comparison tables.
  *   - Savings products are classified into five categories by keyword
@@ -73,7 +73,7 @@ export function categorizeSavings(notes: string | null): SavingsCategory {
   }
   if (/money market/.test(text)) return "money_market";
   // An explicit "ordinary/normal/easy saver" name, or a label that is just
-  // a balance tier with no brand name attached (e.g. "Below LKR 50,000") —
+  // a balance tier with no brand name attached (e.g. "Below LKR 50,000").
   // the latter pattern means the surrounding bank module only scraped one
   // savings product at all, so it must be that bank's basic account.
   if (/^(ordinary|normal|easy saver)\b/.test(text)) return "normal";

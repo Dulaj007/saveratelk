@@ -2,13 +2,13 @@
  * components/SiteHeader.tsx
  *
  * Positions Nav (the floating Top/Rates/Calculator/About pill) fixed near
- * the top of the viewport — centered, not a full-width bar, for an
- * app-like feel rather than a website header — and slides it smoothly
+ * the top of the viewport, centered, not a full-width bar, for an
+ * app-like feel rather than a website header, and slides it smoothly
  * out of view on scroll-down, back in on scroll-up, the common
  * "auto-hide nav" pattern, so it doesn't permanently eat into the
  * viewport on long pages but is always one scroll-up away.
  *
- * No logo/brand bar or "Live"/CTA button here anymore — just the pill.
+ * No logo/brand bar or "Live"/CTA button here anymore, just the pill.
  *
  * Client Component: the scroll-direction tracking needs window/useEffect.
  * Hero.tsx still cancels out this being fixed (and so out of normal

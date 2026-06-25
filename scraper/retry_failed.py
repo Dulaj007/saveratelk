@@ -4,7 +4,7 @@ retry_failed.py
 Lightweight retry checker for the SaveRateLK scraper service.
 
 Run once by the second scheduled trigger in ../.github/workflows/scrape.yml
-— offset config.RETRY_DELAY_MINUTES after the main run's trigger — rather
+(offset config.RETRY_DELAY_MINUTES after the main run's trigger) rather
 than on its own frequent cron, since GitHub Actions bills per run rather
 than per idle tick the way a VPS cron job doesn't. On a typical run it
 finds nothing due (the main run usually succeeds for every bank) and just
@@ -15,12 +15,12 @@ failure in the main daily run.
 
 This is deliberately a separate script rather than main.py sleeping for
 RETRY_DELAY_MINUTES before retrying inline: a blocking sleep would tie up
-the main run (and cost workflow minutes for no reason on the — common —
+the main run (and cost workflow minutes for no reason on the common
 ticks where nothing failed), whereas a separate scheduled run can be
 skipped/cheap independently.
 
 Each due retry is consumed (deleted from pending_retries) before being
-attempted, and is passed allow_retry_scheduling=False — so a second
+attempted, and is passed allow_retry_scheduling=False, so a second
 failure here does not queue another retry. The bank's last successfully
 stored rates keep showing in the UI either way; this script's only job is
 to give a single bank that had one bad scrape a quick second chance before

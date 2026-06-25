@@ -6,7 +6,7 @@
  * Deposit types (fd, savings) keep their own dedicated grouping
  * components (FDRatesByTenure, SavingsByCategory); LENDING_PRODUCT_TYPES
  * is the list rendered generically by LendingRates.tsx in the "Loans &
- * Cards" tab — sections for types with no scraped rows simply don't render.
+ * Cards" tab. Sections for types with no scraped rows simply don't render.
  */
 
 export type LendingProductType =

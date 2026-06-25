@@ -2,7 +2,7 @@
 backfill_cbsl_history.py
 
 One-time historical load for CBSL benchmark indicators (AWDR, AWFDR,
-policy rate). Not part of the regular cron schedule — main.py's run of
+policy rate). Not part of the regular cron schedule: main.py's run of
 sources.cbsl.collect() only ever stores the latest month, by design, since
 re-storing the full multi-year series every 6 hours would be pointless.
 This script instead calls cbsl.backfill() once to pull every historical

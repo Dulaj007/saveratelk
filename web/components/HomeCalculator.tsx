@@ -1,7 +1,7 @@
 /**
  * components/HomeCalculator.tsx
  *
- * The site's only calculator — embedded directly on the homepage (after
+ * The site's only calculator, embedded directly on the homepage (after
  * the rate table's history graphs) rather than living on its own
  * /calculator page, so a visitor can estimate returns without leaving the
  * page. The "Calculator" nav link scrolls here via the #calculator anchor
@@ -239,7 +239,7 @@ export default function HomeCalculator({ fdRates, savingsRates }: Props) {
           Estimate only. Assumes interest paid out at a fixed frequency is
           withdrawn rather than reinvested, and that &ldquo;at maturity&rdquo; interest
           compounds annually at the published AER. Actual bank calculations
-          may differ slightly — confirm with the bank before depositing.
+          may differ slightly. Confirm with the bank before depositing.
         </p>
       </HoverGlowCard>
     </CardGlowGrid>

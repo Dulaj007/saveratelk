@@ -1,7 +1,7 @@
 /**
  * components/TenureHistoryChart.tsx
  *
- * One line per FD tenure (3/6/12-month) on a shared time axis — the
+ * One line per FD tenure (3/6/12-month) on a shared time axis. The
  * Fixed Deposits category's history chart, showing how each tenure's
  * average rate across all banks has moved, rather than MultiBankHistoryChart's
  * one-line-per-bank view. Each tenure can be toggled off independently via
@@ -90,7 +90,7 @@ export default function TenureHistoryChart({ data, series, title }: Props) {
           <Tooltip
             formatter={(value, name, item) => {
               const bank = item?.dataKey != null ? item.payload?.[`${item.dataKey}__bank`] : undefined;
-              return [`${Number(value).toFixed(2)}%${bank ? ` — ${bank}` : ""}`, name];
+              return [`${Number(value).toFixed(2)}%${bank ? ` (${bank})` : ""}`, name];
             }}
             contentStyle={{ backgroundColor: "#171717", borderColor: "#404040", color: "#a3a3a3" }}
           />
@@ -118,7 +118,7 @@ export default function TenureHistoryChart({ data, series, title }: Props) {
 
       {isSparse && (
         <p className="mt-2 text-xs text-neutral-500">
-          Only {data.length} day{data.length === 1 ? "" : "s"} of history recorded so far — the trend will fill in as more daily scrapes come in.
+          Only {data.length} day{data.length === 1 ? "" : "s"} of history recorded so far. The trend will fill in as more daily scrapes come in.
         </p>
       )}
     </div>

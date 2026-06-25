@@ -3,25 +3,25 @@
  *
  * Shared list used for every product type that's just "one bank, one
  * rate" (savings categories, and the lending/credit-card types in
- * LendingRates) — as opposed to FDRatesByTenure's two-column maturity/
+ * LendingRates), as opposed to FDRatesByTenure's two-column maturity/
  * monthly layout, which has its own renderer.
  *
  * Deliberately a list of rows, not a literal <table>: a table forces a
  * visitor to scan across five columns to read one bank's rate, which is
  * exactly the "feels like a spreadsheet" complaint this was rewritten to
- * fix. Each row instead reads top-to-bottom — logo and bank name first,
- * then one big number — with the secondary details (product name, last
+ * fix. Each row instead reads top-to-bottom: logo and bank name first,
+ * then one big number, with the secondary details (product name, last
  * updated, source link) folded into a single small muted line underneath
  * rather than their own columns. The best row is marked with a star icon
  * rather than a "Best rate" text badge, for the same reason.
  *
  * "Best" depends on which side of the product the rate is paid from: for
  * a deposit (savings) the highest rate is best for the saver, but for a
- * loan/credit-card rate the LOWEST is best for the borrower —
+ * loan/credit-card rate the LOWEST is best for the borrower.
  * lowerIsBetter flips both the sort and the star so LendingRates doesn't
  * end up starring the most expensive loan as if it were the best deal.
  *
- * Server Component — all sorting happens once at render time.
+ * Server Component, since all sorting happens once at render time.
  */
 
 import { RateRow } from "@/lib/db";

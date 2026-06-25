@@ -59,7 +59,7 @@ def _get_parser(url: str) -> RobotFileParser | None:
             timeout=REQUEST_TIMEOUT,
         )
         if response.status_code >= 400:
-            # No robots.txt (or inaccessible) — permissive default.
+            # No robots.txt (or inaccessible): permissive default.
             logger.info("No robots.txt at %s (status %d); allowing access.",
                         robots_url, response.status_code)
             return None
@@ -92,5 +92,5 @@ def is_allowed(url: str) -> bool:
 
     allowed = parser.can_fetch(USER_AGENT, url)
     if not allowed:
-        logger.warning("robots.txt disallows access to %s — skipping.", url)
+        logger.warning("robots.txt disallows access to %s, skipping.", url)
     return allowed

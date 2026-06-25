@@ -1,7 +1,7 @@
 /**
  * components/CategoryFlatTable.tsx
  *
- * The big flat comparison table at the bottom of the homepage — one row
+ * The big flat comparison table at the bottom of the homepage. One row
  * per bank, columns depend on which of the four hero-pill categories is
  * selected. Replaces, for the homepage only, the old per-tenure/per-
  * category sub-tabs + history charts (FDRatesByTenure / SavingsByCategory
@@ -11,7 +11,7 @@
  *
  * Fixed Deposits gets the full Bank | 3/6/12-month | Min. deposit layout.
  * Savings keeps its old per-category sub-tabs (Normal/Minor/Senior/Money
- * Market/Special — see lib/categorize.ts) instead of collapsing to one
+ * Market/Special, see lib/categorize.ts) instead of collapsing to one
  * row per bank, since a bank's several named savings products are
  * genuinely different accounts, not variants of the same thing; cards
  * and loans likewise list every row rather than just each bank's
@@ -19,11 +19,11 @@
  *
  * Each table also offers a "Sort by" control (default order is always
  * best/cheapest-first; re-sorting is local UI state, not a re-fetch) and
- * is followed by a history chart — by tenure for FDs, by bank for the
+ * is followed by a history chart: by tenure for FDs, by bank for the
  * other three categories, since they don't have a tenure dimension to
  * split on.
  *
- * Client Component — sort order and the savings sub-tab are interactive
+ * Client Component, since sort order and the savings sub-tab are interactive
  * local state.
  */
 "use client";
@@ -55,7 +55,7 @@ interface Props {
 
 const FD_TENURES = [3, 6, 12] as const;
 
-/** "loan" category's sub-tabs — every lending type except cards, which get their own top-level category. */
+/** "loan" category's sub-tabs: every lending type except cards, which get their own top-level category. */
 const LOAN_PRODUCT_TYPES = LENDING_PRODUCT_TYPES.filter((t) => t !== "card");
 
 interface FdLine {
@@ -99,7 +99,7 @@ interface SingleRateLine {
   rate:     number;
 }
 
-/** Every row mapped to a display line — deliberately not collapsed to one per bank, so a bank's several distinct products (e.g. four named savings accounts) all show up rather than just its best one. */
+/** Every row mapped to a display line, deliberately not collapsed to one per bank, so a bank's several distinct products (e.g. four named savings accounts) all show up rather than just its best one. */
 function buildFullRateLines(
   rows: RateRow[],
   labelFor: (row: RateRow) => string,
@@ -275,8 +275,8 @@ function FdTable({ rows }: { rows: RateRow[] }) {
           { value: "name", label: "Bank name (A–Z)" },
         ]}
       />
-      {/* A bank × tenure grid is unreadable squeezed into a phone's width —
-          text just wraps to three lines per cell — so mobile gets a
+      {/* A bank × tenure grid is unreadable squeezed into a phone's width:
+          text just wraps to three lines per cell. So mobile gets a
           simple stacked card per bank instead of the table; md: and up
           keep the full table. */}
       <div className="space-y-3 px-4 pb-2 md:hidden">
@@ -310,7 +310,7 @@ function FdTable({ rows }: { rows: RateRow[] }) {
                     <div key={t} className={`rounded-lg px-2 py-2 ${last ? "bg-blue-500/10" : "bg-white/5"}`}>
                       <div className="text-[10px] uppercase tracking-wide text-neutral-500">{t} mo</div>
                       <div className={`mt-0.5 text-sm font-bold ${last ? (isBest ? "text-blue-300" : "text-white") : "text-neutral-200"}`}>
-                        {r ? `${Number(r.interest_rate).toFixed(2)}%` : "—"}
+                        {r ? `${Number(r.interest_rate).toFixed(2)}%` : "-"}
                       </div>
                     </div>
                   );
@@ -319,7 +319,7 @@ function FdTable({ rows }: { rows: RateRow[] }) {
 
               <div className="mt-2 flex justify-between text-xs text-neutral-400">
                 <span>Min. deposit</span>
-                <span className="text-neutral-200">{line.minDeposit != null ? formatCurrency(line.minDeposit) : "—"}</span>
+                <span className="text-neutral-200">{line.minDeposit != null ? formatCurrency(line.minDeposit) : "-"}</span>
               </div>
             </div>
           );
@@ -368,12 +368,12 @@ function FdTable({ rows }: { rows: RateRow[] }) {
                           last ? (isBest ? "text-blue-300" : "text-white") : ""
                         }`}
                       >
-                        {r ? `${Number(r.interest_rate).toFixed(2)}%` : "—"}
+                        {r ? `${Number(r.interest_rate).toFixed(2)}%` : "-"}
                       </td>
                     );
                   })}
                   <td className="px-6 py-3.5 text-right text-neutral-400">
-                    {line.minDeposit != null ? formatCurrency(line.minDeposit) : "—"}
+                    {line.minDeposit != null ? formatCurrency(line.minDeposit) : "-"}
                   </td>
                 </tr>
               );
@@ -421,7 +421,7 @@ function SingleRateTable({
     return <p className="px-6 py-8 text-sm text-neutral-400">No data available yet.</p>;
   }
   // A composite key, not just bankCode, since a bank can have several lines (e.g. four named
-  // savings products) — bankCode alone would mark every one of that bank's rows as "Best".
+  // savings products), bankCode alone would mark every one of that bank's rows as "Best".
   const bestKey = `${lines[0].bankCode}:${lines[0].label}`;
 
   const sorted = sortKey === "name" ? [...lines].sort((a, b) => a.bankName.localeCompare(b.bankName)) : lines;
@@ -436,7 +436,7 @@ function SingleRateTable({
           { value: "name", label: "Bank name (A–Z)" },
         ]}
       />
-      {/* Mobile gets a stacked card per line instead of the table — see FdTable's identical split. */}
+      {/* Mobile gets a stacked card per line instead of the table. See FdTable's identical split. */}
       <div className="space-y-3 px-4 pb-2 md:hidden">
         {sorted.map((line, i) => {
           const isBest = `${line.bankCode}:${line.label}` === bestKey;
@@ -514,7 +514,7 @@ function SingleRateTable({
 }
 
 /**
- * Savings sub-tabs (Normal/Minor/Senior/Money Market/Special) — brought
+ * Savings sub-tabs (Normal/Minor/Senior/Money Market/Special), brought
  * back from the old SavingsByCategory component instead of the flat,
  * collapsed-to-one-row-per-bank list, since the five categories are
  * genuinely different account types a saver picks between, not variants
@@ -556,21 +556,21 @@ function SavingsTable({ rows }: { rows: RateRow[] }) {
 }
 
 /**
- * Loan sub-tabs (Housing/Personal/Leasing/Education/Pawning/Overdraft) —
+ * Loan sub-tabs (Housing/Personal/Leasing/Education/Pawning/Overdraft),
  * same idea as SavingsTable: these are genuinely different loan products,
  * not variants of "a loan" to collapse into one row per bank.
  */
 function LoanTable({ rows }: { rows: RateRow[] }) {
   const types = LOAN_PRODUCT_TYPES.filter((t) => rows.some((r) => r.product_type === t));
   // Inferred (not explicitly annotated as LendingProductType) so it stays the same
-  // "every lending type but card" union TS narrows `types` itself to via the filter above —
-  // an explicit wider annotation here would make types.includes(activeType) a type error.
+  // "every lending type but card" union TS narrows `types` itself to via the filter above.
+  // An explicit wider annotation here would make types.includes(activeType) a type error.
   const [activeType, setActiveType] = useState(types[0]);
 
   if (rows.length === 0 || types.length === 0) {
     return (
       <p className="px-6 py-8 text-sm text-neutral-400">
-        No loan rate data available yet — many banks only quote these individually rather than publishing a flat rate.
+        No loan rate data available yet. Many banks only quote these individually rather than publishing a flat rate.
       </p>
     );
   }

@@ -8,12 +8,12 @@
  * multi-bank history chart shown inside each tenure/category sub-tab.
  *
  * Grouped by calendar day rather than the exact scrape timestamp, since
- * banks aren't all scraped at the same instant — aligning to "day" is
+ * banks aren't all scraped at the same instant. Aligning to "day" is
  * what makes their points fall on the same x-axis tick instead of each
  * bank fragmenting into its own sparse column. When a bank has more than
  * one reading on the same day (e.g. a savings or lending category with
  * several notes-variants for the same bank, or a retried scrape), the
- * *best* rate for that day wins rather than picking one arbitrarily —
+ * *best* rate for that day wins rather than picking one arbitrarily,
  * same lowerIsBetter rule as RateTable, since a lending category's
  * "best" trend line should track the cheapest variant, not the most
  * expensive one.
@@ -94,7 +94,7 @@ export interface TenureHistoryInput {
 
 /**
  * Pivots FD history into one line per tenure (e.g. 3/6/12-month) instead
- * of one line per bank — each day's point is the HIGHEST at-maturity rate
+ * of one line per bank. Each day's point is the HIGHEST at-maturity rate
  * any bank published for that tenure that day, plus which bank gave it
  * (stashed under a sibling `t{tenure}__bank` key so the chart's tooltip
  * can name the bank behind the number). Used by the homepage's Fixed

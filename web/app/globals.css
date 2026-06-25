@@ -7,7 +7,7 @@
 
 html {
   color-scheme: light dark;
-  /* Nav's Top/Rates/Calculator links are plain #id anchors — this is what
+  /* Nav's Top/Rates/Calculator links are plain #id anchors. This is what
      makes jumping to one glide instead of snapping. */
   scroll-behavior: smooth;
 }
@@ -42,9 +42,9 @@ html, body {
 /*
  * A plain box-shadow is black-on-black and invisible against a true-black
  * page, so "elevated card" in dark mode reads instead as a faint light
- * edge plus a soft halo — the same idea a regular drop shadow gives in
+ * edge plus a soft halo, the same idea a regular drop shadow gives in
  * light mode, just inverted. Applied alongside (not instead of) each
- * surface's existing border/shadow utilities; has no effect outside
+ * surface's existing border/shadow utilities. Has no effect outside
  * .dark, so light mode is untouched.
  */
 .dark .surface-glow {
@@ -55,7 +55,7 @@ html, body {
 }
 
 /* Staggered entrance for the "Today's Best Rates" cards (each given an
-   increasing animation-delay) — a small bit of motion so the headline
+   increasing animation-delay). A small bit of motion so the headline
    cards feel like they arrived, not like static markup. */
 @keyframes rise-in {
   from {
@@ -71,8 +71,8 @@ html, body {
   animation: rise-in 0.4s ease-out both;
 }
 
-/* The three drifting glow blobs in AuroraBackground — each on its own
-   timing/distance so they don't all move in lockstep. */
+/* The three drifting glow blobs in AuroraBackground, each on its own
+   timing and distance so they don't all move in lockstep. */
 @keyframes float-a {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50%      { transform: translate(60px, 50px) scale(1.1); }
@@ -98,20 +98,41 @@ html, body {
   }
 }
 
+/* SplashScreen: the "%" mark pops in with a small overshoot (scale past
+   100% then settle), then the wordmark fades up beside it a beat later.
+   Plain CSS so the very first thing a visitor sees doesn't wait on any
+   JS bundle beyond the tiny component that toggles the exit classes. */
+@keyframes splash-mark-pop {
+  0%   { opacity: 0; transform: scale(0.5); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes splash-word-in {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-splash-mark { animation: splash-mark-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-splash-word { animation: splash-word-in 0.4s ease-out 0.25s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-splash-mark, .animate-splash-word {
+    animation: none;
+  }
+}
+
 /* Cursor-tracking border-glow + light spill for every card in TopRatesToday
    (HoverGlowCard, tracked grid-wide by CardGlowGrid so nearby cards light
    up too, not just the one directly under the pointer). Each card sets
-   its own --glow-color (an "r, g, b" triplet, not a full color —
+   its own --glow-color (an "r, g, b" triplet, not a full color, since
    rgba(var(--glow-color), a) needs the bare channels) so the glow matches
    that card's own accent instead of one fixed brand color.
    --glow-x/--glow-y/--glow-intensity are pushed from CardGlowGrid's
    mousemove handler.
 
    Desktop only (min-width: 768px, matching Tailwind's `md:`): there is no
-   cursor to track on a touchscreen, so below that width the cards fall
-   back to a plain solid black background instead — cheaper to paint than
-   the translucent/backdrop-blur tints each card's own className applies,
-   which matters more on mobile hardware. */
+   cursor to track on a touchscreen, so below that width these pseudo
+   elements don't render at all. Each card keeps its own translucent
+   background and border styling on mobile either way. */
 @media (min-width: 768px) {
   .glow-card {
     --glow-x: 50%;
@@ -152,13 +173,5 @@ html, body {
     mask-composite: exclude;
     pointer-events: none;
     z-index: 1;
-  }
-}
-
-@media (max-width: 767px) {
-  .glow-card {
-    background-color: black !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
   }
 }

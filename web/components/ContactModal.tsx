@@ -2,7 +2,7 @@
  * components/ContactModal.tsx
  *
  * Footer "Contact us" button + the popup it opens. No form, no
- * server-side sending to wire up — it just surfaces the inbox configured
+ * server-side sending to wire up. It just surfaces the inbox configured
  * in CONTACT_EMAIL (read server-side by Footer.tsx and passed in here as
  * a prop) and points the visitor at their own mail client via a mailto:
  * link.

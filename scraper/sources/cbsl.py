@@ -22,7 +22,7 @@ Layout notes (confirmed by downloading and inspecting the live file):
     while scanning rows, the same pattern used for rowspanned HTML tables
     elsewhere in this project.
   - Column index 2 (C): month name.
-  - Column index 3 (D): Overnight Policy Rate (OPR) — CBSL's current single
+  - Column index 3 (D): Overnight Policy Rate (OPR). CBSL's current single
     policy rate, populated from late 2023 onward. Column index 4 (E),
     Standing Deposit Facility Rate (SDFR), is used as a fallback for older
     rows where OPR is blank, since SDFR was the operative signalling rate
@@ -30,9 +30,9 @@ Layout notes (confirmed by downloading and inspecting the live file):
   - Column index 15 (P): AWDR. Column index 16 (Q): AWFDR.
 
 No legal maximum deposit rate ("deposit_cap") is collected: CBSL does not
-currently publish one as a standard recurring series — the cap imposed
+currently publish one as a standard recurring series. The cap imposed
 during 2022/2023 was an emergency directive, not an ongoing published
-statistic — so there is nothing reliable to scrape for that indicator yet.
+statistic, so there is nothing reliable to scrape for that indicator yet.
 """
 
 import io
@@ -51,7 +51,7 @@ STATISTICS_PAGE_URL = "https://www.cbsl.gov.lk/en/statistics/statistical-tables/
 _YEAR_COL, _MONTH_COL, _OPR_COL, _SDFR_COL = 1, 2, 3, 4
 _AWDR_COL, _AWFDR_COL = 15, 16
 
-# CBSL's month column is a full month name ("April"), not an abbreviation —
+# CBSL's month column is a full month name ("April"), not an abbreviation.
 # %B in strptime handles that directly.
 _PERIOD_FORMAT = "%B %Y"
 
@@ -76,7 +76,7 @@ def _find_monthly_interest_rates_url() -> str | None:
 def _all_rows(xlsx_bytes: bytes) -> list[tuple[str, float | None, float, float]]:
     """
     Parse the spreadsheet and return every (period, policy_rate, awdr, awfdr)
-    data row found, oldest first — the full multi-year series CBSL publishes
+    data row found, oldest first. The full multi-year series CBSL publishes
     in this one file, not just its most recent month.
     """
     workbook = openpyxl.load_workbook(io.BytesIO(xlsx_bytes), data_only=True)
@@ -113,7 +113,7 @@ def _period_to_date(period: str) -> datetime:
     """
     Parse a CBSL period string (e.g. "April 2024") into a UTC datetime
     anchored to the first of that month, used as the synthetic scraped_at
-    for backfilled historical rows — they need *some* date so
+    for backfilled historical rows. They need *some* date so
     getLatestBenchmarks()'s "most recent scraped_at wins" ordering still
     sorts them chronologically against each other and behind whatever a
     regular collect() run stores for the current month.
@@ -161,7 +161,7 @@ def backfill() -> int:
     """
     One-time historical load: store every month CBSL's spreadsheet has data
     for (years deep), not just the latest. Run manually via
-    backfill_cbsl_history.py — collect() (the regular 6-hourly run) only
+    backfill_cbsl_history.py. collect() (the regular 6-hourly run) only
     ever stores the latest month, so this is what gives the AWFDR/AWDR
     charts real multi-year depth instead of however many days the regular
     scrape has happened to run for.

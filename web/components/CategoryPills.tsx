@@ -3,10 +3,10 @@
  *
  * The Fixed Deposits / Savings / Credit Cards / Loans switcher, split out
  * of Hero so it can sit below TopRatesToday on the page instead of inside
- * the hero image — selecting a pill changes which table
+ * the hero image. Selecting a pill changes which table
  * CategoryFlatTable renders further down.
  *
- * Plain presentational component — the selected-category state itself
+ * Plain presentational component. The selected-category state itself
  * lives in HomeRatesSection, the nearest shared ancestor.
  */
 
