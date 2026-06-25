@@ -1,0 +1,32 @@
+# saveratelk-web.service
+#
+# systemd unit that runs the built Next.js app as a long-lived service on
+# the VPS, restarting it automatically on crash or server reboot.
+#
+# Install:
+#   sudo cp deploy/saveratelk-web.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now saveratelk-web
+#
+# Expects `npm run build` to have already been run in /opt/saveratelk/web,
+# and the production .env (DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD,
+# SITE_URL) to be present there as .env.production or set via the
+# Environment directives below.
+
+[Unit]
+Description=SaveRateLK Next.js web app
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/saveratelk/web
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=5
+User=saveratelk
+Group=saveratelk
+Environment=NODE_ENV=production
+Environment=PORT=3000
+
+[Install]
+WantedBy=multi-user.target
