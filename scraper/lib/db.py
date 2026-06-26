@@ -21,6 +21,7 @@ reused for the lifetime of the scrape process.
 import logging
 from datetime import datetime, timezone
 from typing import Optional
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 import psycopg2
 from psycopg2.extensions import connection as PgConnection
@@ -31,6 +32,24 @@ from lib.models import RateRecord
 logger = logging.getLogger(__name__)
 
 _conn: Optional[PgConnection] = None
+
+
+def normalize_dsn(dsn: str) -> str:
+    """
+    Force sslmode=require on the given connection string, overriding
+    whatever sslmode is already present.
+
+    Neon's dashboard sometimes hands out connection strings with
+    sslmode=verify-full, which needs a root certificate file that is not
+    present on a fresh machine (e.g. a GitHub Actions runner) and fails
+    with a confusing OperationalError. require encrypts the connection
+    without needing a certificate file on disk, which is enough here
+    since the endpoint itself is already trusted.
+    """
+    parts = urlsplit(dsn)
+    query = dict(parse_qsl(parts.query))
+    query["sslmode"] = "require"
+    return urlunsplit(parts._replace(query=urlencode(query)))
 
 
 def get_connection() -> PgConnection:
@@ -45,7 +64,7 @@ def get_connection() -> PgConnection:
     """
     global _conn
     if _conn is None or _conn.closed:
-        _conn = psycopg2.connect(DATABASE_URL)
+        _conn = psycopg2.connect(normalize_dsn(DATABASE_URL))
         logger.info("Opened database connection.")
     return _conn
 

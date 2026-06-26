@@ -21,6 +21,7 @@ import logging
 import psycopg2
 
 from config import DATABASE_URL
+from lib.db import normalize_dsn
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -86,7 +87,7 @@ def main() -> None:
     """
     logger.info("Connecting to database ...")
     try:
-        conn = psycopg2.connect(DATABASE_URL)
+        conn = psycopg2.connect(normalize_dsn(DATABASE_URL))
     except psycopg2.OperationalError as exc:
         logger.error("Could not connect to the database: %s", exc)
         sys.exit(1)
